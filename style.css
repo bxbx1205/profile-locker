@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000428, #004e92);
+  color: #ffffff;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 15px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+/* Heading styles */
+.container h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+.container input[type="text"],
+.container input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+.container input[type="text"]:focus,
+.container input[type="password"]:focus {
+  box-shadow: 0 0 8px rgba(0, 78, 146, 0.8);
+}
+
+.container button {
+  width: 100%;
+  padding: 12px;
+  background: #0066cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.container button:hover {
+  background: #005bb5;
+  transform: translateY(-2px);
+}
+
+.container button:active {
+  background: #004e92;
+  transform: translateY(0);
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}

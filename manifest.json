@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Profile Locker",
+  "version": "1.5",
+  "description": "Locks the browser with a password prompt on every profile open.",
+  "permissions": ["storage", "tabs"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "chrome_url_overrides": {
+    "newtab": "locked.html"
+  },
+  "icons": {
+    "128": "icons/icon128.png"
+  }
+}

@@ -17,7 +17,8 @@ function initializeProfileLock() {
 }
 
 chrome.tabs.onCreated.addListener((tab) => {
-  enforceLock(tab.id, tab.url || "");
+  // New tab handling - only redirect if locked
+  handleNewTab(tab);
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -26,7 +27,36 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
+chrome.tabs.onActivated.addListener((activeInfo) => {
+  chrome.tabs.get(activeInfo.tabId, (tab) => {
+    enforceLock(tab.id, tab.url || "");
+  });
+});
+
+// Special handler for new tabs
+function handleNewTab(tab) {
+  const newTabUrl = "chrome://newtab/";
+  
+  // Check if this is a new tab page
+  if (tab.pendingUrl === newTabUrl || tab.url === newTabUrl) {
+    chrome.storage.sync.get(["profileLocked", "username", "profilePassword"], (data) => {
+      // Only redirect new tabs if profile is locked
+      if (!data.username || !data.profilePassword) {
+        chrome.tabs.update(tab.id, { url: chrome.runtime.getURL("register.html") });
+      } else if (data.profileLocked) {
+        chrome.tabs.update(tab.id, { url: chrome.runtime.getURL("locked.html") });
+      }
+      // If unlocked, leave the tab as is (default new tab page)
+    });
+  }
+}
+
 function enforceLock(tabId, url) {
+  // Skip the check for chrome://newtab as it's handled by handleNewTab
+  if (url === "chrome://newtab/") {
+    return;
+  }
+  
   chrome.storage.sync.get(["profileLocked", "username", "profilePassword"], (data) => {
     const lockedUrl = chrome.runtime.getURL("locked.html");
     const registerUrl = chrome.runtime.getURL("register.html");

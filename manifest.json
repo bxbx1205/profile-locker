@@ -1,5 +1,5 @@
 {
-  "manifest_version": 1,
+  "manifest_version": 3,
   "name": "Profile Locker",
   "version": "1.2",
   "description": "Locks the browser with a password prompt on every profile open.",
